@@ -12,17 +12,22 @@ admin.initializeApp({
 const authorized = false
 
 function checkAuth(req: express.Request, res: express.Response, next: express.NextFunction) {
-    console.log(req.headers)
+    console.log(req.headers.authtoken)
     if (req.headers.authtoken) {
         // @ts-ignore
         admin.auth().verifyIdToken(req.headers.authtoken)
-            .then(() => {
+            .then((DecodedIdToken) => {
+                console.log(`dedodedIdToken`)
+                console.log(DecodedIdToken);
+                res.status(200)
                 next()
-            }).catch(() => {
+            }).catch((e) => {
+            console.log(e)
             res.status(403).send('Unauthorized')
         });
     } else {
-        res.status(403).send('Unauthorized')
+        console.log(`eeee`)
+        res.status(402).send('Unauthorized')
     }
 }
 
