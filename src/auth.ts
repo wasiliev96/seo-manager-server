@@ -9,7 +9,6 @@ admin.initializeApp({
     databaseURL: "https://fbauthdemo-2a451.firebaseio.com"
 });
 
-const authorized = false
 
 function checkAuth(req: express.Request, res: express.Response, next: express.NextFunction) {
     console.log(req.headers.authtoken)
@@ -17,7 +16,7 @@ function checkAuth(req: express.Request, res: express.Response, next: express.Ne
         // @ts-ignore
         admin.auth().verifyIdToken(req.headers.authtoken)
             .then((DecodedIdToken) => {
-                console.log(`dedodedIdToken`)
+                console.log(`decodedIdToken`)
                 console.log(DecodedIdToken);
                 res.status(200)
                 next()
