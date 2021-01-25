@@ -18,7 +18,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "firebase-admin": "^9.4.2",
-    "mongoose": "^5.11.12"
+    "mongoose": "^5.11.12",
+    "telegraf": "^4.0.1"
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",

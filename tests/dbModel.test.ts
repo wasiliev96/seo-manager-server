@@ -1,4 +1,4 @@
-import User, {IUser} from "../src/database/models/User";
+import User from "../src/database/models/User";
 import mongoose = require('mongoose');
 
 beforeAll((done) => {
