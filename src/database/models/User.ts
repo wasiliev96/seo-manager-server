@@ -10,22 +10,22 @@ const UptimeStateSchema = new Schema({
 });
 
 const DomainRecordSchema = new Schema({
-    hostname: {type: String, required: true},
+    hostname: {type: String, required: true, unique:true},
     uptimes: {type: [UptimeStateSchema], required: false}
 });
 
-export interface IUser extends mongoose.Document {
-    id: string;
-    domains: [IDomainRecord]
-}
+// export interface IUser extends mongoose.Document {
+//     id: string;
+//     domains: [IDomainRecord]
+// } bug with ts $push domain. Uncomment when ts version update
 
 const UserSchema = new Schema({
-    userId: {type: String, required: true, unique: true},
-    domains: {type: [DomainRecordSchema], required: true, validate: (v: any) => Array.isArray(v) && v.length > 0}
+    username: {type: String, required: true, unique: true},
+    domains: {type: [DomainRecordSchema], required: false}
 });
 // UserSchema.path('id').validate((n: any) => {
 //     return !!n && n.length >= 100;
 // }, 'Invalid id');
-const User = mongoose.model<IUser>('User', UserSchema);
+const User = mongoose.model('User', UserSchema);
 export default User;
 
