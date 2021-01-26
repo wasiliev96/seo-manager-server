@@ -20,14 +20,20 @@
     "firebase-admin": "^9.4.2",
     "moment": "^2.29.1",
     "mongoose": "^5.11.12",
+<<<<<<< HEAD
     "puppeteer": "^5.5.0",
+=======
+>>>>>>> 8eba6dc... add whois handler
     "telegraf": "^4.0.1",
     "whoiser": "^1.9.2"
   },
   "devDependencies": {
     "@types/cors": "^2.8.9",
     "@types/jest": "^26.0.20",
+<<<<<<< HEAD
     "@types/puppeteer": "^5.4.2",
+=======
+>>>>>>> 8eba6dc... add whois handler
     "@types/moment": "^2.13.0",
     "@types/supertest": "^2.0.10",
     "babel-cli": "^6.26.0",
