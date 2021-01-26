@@ -28,6 +28,7 @@
     "@types/cors": "^2.8.9",
     "@types/jest": "^26.0.20",
     "@types/puppeteer": "^5.4.2",
+    "@types/moment": "^2.13.0",
     "@types/supertest": "^2.0.10",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
