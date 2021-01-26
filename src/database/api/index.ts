@@ -44,3 +44,9 @@ export const removeDomainById = async (userId: string, domainId: string) => {
         }
     })
 }
+
+export const getUserData = async (userId: string) => {
+    const userData = await User.findById(userId);
+    console.log(userData);
+    return userData;
+}
