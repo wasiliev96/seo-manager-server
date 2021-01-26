@@ -6,7 +6,7 @@ mongoose.connect(
     'mongodb://localhost:27017/test?readPreference=primary&appname=MongoDB%20Compass&ssl=false',
     {useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false})
     .then(() => {
-        console.log('Connected to database');
+        // console.log('Connected to database');
     })
     .catch((err) => {
         console.log('Error connecting to DB', err.message);
@@ -47,6 +47,6 @@ export const removeDomainById = async (userId: string, domainId: string) => {
 
 export const getUserData = async (userId: string) => {
     const userData = await User.findById(userId);
-    console.log(userData);
+    // console.log(userData);
     return userData;
 }

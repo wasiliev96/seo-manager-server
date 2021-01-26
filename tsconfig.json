@@ -10,7 +10,6 @@
     "moduleResolution": "node",
     "baseUrl": "./",
     "resolveJsonModule": true,
-    "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
@@ -21,12 +20,14 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react"
   },
   "include": [
     "src/**/*",
-    "types/**/*"
+    "types/**/*",
+    "tests/**/*"
   ]
 }

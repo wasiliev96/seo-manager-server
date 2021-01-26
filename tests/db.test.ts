@@ -94,7 +94,7 @@ describe("MongoDB CRUD", () => {
     })
     test("Should add domain to exist User model record", async (done) => {
         const hostname = 'yandex.com';
-        const userId = `600e936fd9739420f4ff627b`;
+        const userId = `600ea8f14de4984228e07cbc`;
         let resUser: any = null;
         try {
             await addDomainToUser(userId, hostname);
