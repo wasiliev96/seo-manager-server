@@ -1,6 +1,6 @@
 import User from "../src/database/models/User";
 import mongoose = require('mongoose');
-import {addDomainToUser, addUser, removeDomainById} from "../src/database/api";
+import {addDomainToUser, addUser, getUserData, removeDomainById} from "../src/database/api";
 
 // beforeAll((done) => {
 // });
@@ -112,13 +112,28 @@ describe("MongoDB CRUD", () => {
         done();
     })
 
-    test("Shoud delete domain from User.domains", async () => {
+    test("Shoud delete domain from User.domains", async (done) => {
         const userId = `600e936fd9739420f4ff627b`;
         const domainId = `600ea7252d01f93410c54be4`
         await removeDomainById(userId, domainId);
         const resUser = await User.findById(userId);
         // console.log(resUser.domains);
         expect(resUser.domains.find((domain: any) => domain._id === domainId)).toBe(undefined);
+        done()
+    })
+
+    test("should return valid user data from mongoDB", async(done)=>{
+        const userId = `600ea8f14de4984228e07cbc`;
+       const userData = await getUserData(userId);
+        console.log(userData);
+        expect(userData.username).toBe(`3jgupp`)
+        done();
+    })
+    test('shoud NOT return data from invalid user', async(done)=>{
+        const userId = `600ea8f14de4984228e07cb7`;
+        const userData = await getUserData(userId);
+        expect(userData).toBeFalsy()
+        done();
     })
 })
 
