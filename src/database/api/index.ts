@@ -37,6 +37,26 @@ export const addDomainToUser = async (userId: string, domain: string) => {
         })
 }
 
+export const addUptimeStateToUserDomain = async (userId: string, hostname: string, uptimeState: {
+    date: Date,
+    statusCode: number,
+    responseTime: number
+}) => {
+    const foundUser = await User.findById(userId)
+    // console.log(`found user domains:`, foundUser.domains);
+    const foundDomain = foundUser.domains.find((domain: any) => domain.hostname === hostname);
+    // console.log(`found domain:`, foundDomain)
+    foundDomain.uptimes.push(uptimeState);
+    foundUser.save();
+    return foundUser;
+}
+export const addExpireDateToUserDomain = async (userId: string, hostname: string) => {
+    const foundUser = await User.findById(userId);
+    const foundDomain = foundUser.domains.find((domain: any) => domain.hostname === hostname);
+    foundDomain.expireDate = new Date();
+    return foundUser.save();
+}
+
 export const removeDomainById = async (userId: string, domainId: string) => {
     User.findOneAndUpdate({_id: userId}, {$pull: {domains: {_id: domainId}}}, {new: true}, (err: Error) => {
         if (err) {
@@ -50,6 +70,6 @@ export const getUserData = async (userId: string) => {
     // console.log(userData);
     return userData;
 }
-export const getAllUsersData = async()=>{
+export const getAllUsersData = async () => {
     return User.find();
 }

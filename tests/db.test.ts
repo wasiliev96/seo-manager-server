@@ -1,6 +1,14 @@
 import User from "../src/database/models/User";
 import mongoose = require('mongoose');
-import {addDomainToUser, addUser, getAllUsersData, getUserData, removeDomainById} from "../src/database/api";
+import {
+    addDomainToUser, addExpireDateToUserDomain,
+    addUptimeStateToUserDomain,
+    addUser,
+    getAllUsersData,
+    getUserData,
+    removeDomainById
+} from "../src/database/api";
+import moment from "moment";
 
 // beforeAll((done) => {
 // });
@@ -104,7 +112,7 @@ describe("MongoDB CRUD", () => {
                     resUser = err;
                 }
                 resUser = user;
-                expect(resUser.domains.find((domain:any)=>domain.hostname===hostname)).toBeTruthy();
+                expect(resUser.domains.find((domain: any) => domain.hostname === hostname)).toBeTruthy();
             });
         } catch (e) {
             console.log(e)
@@ -122,23 +130,56 @@ describe("MongoDB CRUD", () => {
         done()
     })
 
-    test("should return valid user data from mongoDB", async(done)=>{
+    test("should return valid user data from mongoDB", async (done) => {
         const userId = `600ea8f14de4984228e07cbc`;
-       const userData = await getUserData(userId);
+        const userData = await getUserData(userId);
         console.log(userData);
         expect(userData.username).toBe(`3jgupp`)
         done();
     })
-    test('shoud NOT return data from invalid user', async(done)=>{
+    test('shoud NOT return data from invalid user', async (done) => {
         const userId = `600ea8f14de4984228e07cb7`;
         const userData = await getUserData(userId);
         expect(userData).toBeFalsy()
         done();
     })
-    test("should return all users from db", async(done)=>{
+    test("should return all users from db", async (done) => {
         const users = await getAllUsersData();
         // console.log(users);
         expect(Array.isArray(users)).toBeTruthy();
+        done();
+    })
+
+    test("should add Uptime state to user domain", async (done) => {
+        const userId = "60114d9041b72f3f1c26b848";
+        const hostname = "yandex.com";
+        const date = new Date();
+        const uptimeState = {
+            date,
+            statusCode: 200,
+            responseTime: 312
+        }
+        const user = await addUptimeStateToUserDomain(userId, hostname, uptimeState);
+        // console.log(user.domains[0].uptimes);
+        let testState = false;
+        user.domains.forEach((domain: any) => {
+            domain.uptimes.forEach((uptime: any) => {
+                // console.log(uptime.date, date)
+                if (uptime.date === date) {
+                    testState = true;
+                    // console.log(`success`);
+                }
+            })
+        })
+        expect(testState).toBeTruthy();
+        done();
+    })
+
+    test("should add to user domain expire date", async (done) => {
+        const userId = '60114d9041b72f3f1c26b848';
+        const hostname = 'yandex.com';
+        const savedDomain = await addExpireDateToUserDomain(userId, hostname)
+        console.log(savedDomain);
         done();
     })
 })
