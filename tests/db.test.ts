@@ -1,6 +1,6 @@
 import User from "../src/database/models/User";
 import mongoose = require('mongoose');
-import {addDomainToUser, addUser, getUserData, removeDomainById} from "../src/database/api";
+import {addDomainToUser, addUser, getAllUsersData, getUserData, removeDomainById} from "../src/database/api";
 
 // beforeAll((done) => {
 // });
@@ -133,6 +133,12 @@ describe("MongoDB CRUD", () => {
         const userId = `600ea8f14de4984228e07cb7`;
         const userData = await getUserData(userId);
         expect(userData).toBeFalsy()
+        done();
+    })
+    test("should return all users from db", async(done)=>{
+        const users = await getAllUsersData();
+        // console.log(users);
+        expect(Array.isArray(users)).toBeTruthy();
         done();
     })
 })

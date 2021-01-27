@@ -50,3 +50,6 @@ export const getUserData = async (userId: string) => {
     // console.log(userData);
     return userData;
 }
+export const getAllUsersData = async()=>{
+    return User.find();
+}
