@@ -4,14 +4,15 @@ import {IDomainRecord} from "./DomainRecord";
 const Schema = mongoose.Schema;
 
 const UptimeStateSchema = new Schema({
-    date: {type: Date, required: true},
+    date: {type: Date, required: true , unique: true},
     statusCode: {type: Number, required: true},
     responseTime: {type: Number, required: true}
 });
 
 const DomainRecordSchema = new Schema({
-    hostname: {type: String, required: true, unique:true},
-    uptimes: {type: [UptimeStateSchema], required: false}
+    hostname: {type: String, required: true, unique: true},
+    uptimes: {type: [UptimeStateSchema], required: false},
+    expireDate: {type: String, required: false}
 });
 
 // export interface IUser extends mongoose.Document {
