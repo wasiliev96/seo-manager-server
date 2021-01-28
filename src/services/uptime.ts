@@ -100,7 +100,7 @@ export async function monitoringRunner() {
         const selector = siteData.selector
         try {
             const result = await monitoring(page, site, selector);
-            results.push(result);
+            results.push({hostname:site, accessAccepted:result});
         } catch (e) {
             console.error(e);
         }

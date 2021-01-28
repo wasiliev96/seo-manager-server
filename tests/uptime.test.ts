@@ -1,5 +1,6 @@
 import {monitoring, monitoringRunner} from "../src/services/uptime";
 import puppeteer from 'puppeteer';
+
 describe("uptime tests", () => {
     test("call", async (done) => {
         done();
@@ -10,8 +11,13 @@ describe("uptime tests", () => {
         // console.log(process.platform)
         // console.log(puppeteer.executablePath());
         // console.log(process.cwd());
-        const results =  await monitoringRunner();
-        expect(results).toMatchObject([false,true])
+        const results = await monitoringRunner();
+        console.log(results);
+        expect(Array.isArray(results)).toBeTruthy();
+        results.forEach((result: {hostname:string, accessAccepted:boolean}) => {
+            expect(result.hostname).toBeTruthy();
+            expect(typeof result.accessAccepted).toBe('boolean');
+        })
         done();
     })
 })
