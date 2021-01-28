@@ -34,7 +34,7 @@ export const monitoring = async (page: any, url: string, selector: string) => {
             console.log('\x1b[36m%s\x1b[0m', `try # ${tryNumber}`)
             await page.goto('about:blank')
             response = await page.goto(`https://${url}`, {waitUntil: 'domcontentloaded'});
-            const scrName = `./screenshots/${url}_${moment().format(`DD-MM-YYYY-HH-mm`)}.png`;
+            const scrName = `./screenshots/${url}_${moment().format(`DD-MM-YYYY`)}.png`;
             console.info('\x1b[36m%s\x1b[0m', `screenshot name: ${scrName}`);
             await page.screenshot({path: scrName});
             const chain = response?.request().redirectChain();

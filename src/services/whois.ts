@@ -20,12 +20,10 @@ export const runChecker = async (userId: string) => {
             const expiryDate = await checkDomain(hostname);
             if (expiryDate) {
                 hostResult.expiryDate = expiryDate;
-            }else{
-                hostResult.expiryDate = null;
             }
-            if (hostResult.hostname && hostResult.expiryDate) {
+            // if (hostResult.hostname && hostResult.expiryDate) {
                 checkResults.push(hostResult);
-            }
+            // }
 
         } catch (error) {
             console.log(`error:`);
@@ -66,7 +64,7 @@ export const whoisRunner = async (usersList: []) => {
     const usersResults: { userId: string, domainsResults: { hostname: string, expiryDate: Date|null }[] }[] = [];
     for (const userId of usersList) {
         const domainsResults: { hostname: string, expiryDate: Date|null }[] = await runChecker(userId);
-        usersResults.push({userId, domainsResults})
+        usersResults.push({userId, domainsResults});
     }
     return usersResults;
 }
