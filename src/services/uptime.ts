@@ -86,8 +86,8 @@ const getSitesConfig = async () => {
     return domainsList.map((domain: string) => ({hostname: domain, selector: "body"}))
 }
 
-export async function monitoringRunner() {
-    const results:any = [];
+export async function monitoringRunner(): Promise<[{ hostname: string, accessAccepted: boolean }]> {
+    const results: any = [];
     const browser = await puppeteer.launch({headless: true})
     browserWSEndpoint = await browser.wsEndpoint();
     const page = await browser.newPage()
@@ -100,7 +100,7 @@ export async function monitoringRunner() {
         const selector = siteData.selector
         try {
             const result = await monitoring(page, site, selector);
-            results.push({hostname:site, accessAccepted:result});
+            results.push({hostname: site, accessAccepted: result});
         } catch (e) {
             console.error(e);
         }
