@@ -10,10 +10,8 @@ describe("uptime tests", () => {
         // console.log(process.platform)
         // console.log(puppeteer.executablePath());
         // console.log(process.cwd());
-        const trueResult = await monitoring('google.ru', 'body');
-        const falseResult = await monitoring('wdawd', 'body');
-        expect(trueResult).toBeTruthy();
-        expect(falseResult).toBeFalsy();
+        const results =  await monitoringRunner();
+        expect(results).toMatchObject([false,true])
         done();
     })
 })
